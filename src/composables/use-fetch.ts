@@ -12,8 +12,8 @@ export function useFetch<D>(params: UseFetchParams<D>) {
 	
 	onMounted(() => {
 		service()
-			.then((value) => (data.value = value as UnwrapRef<D>))
-			.catch((err) => (error.value = err))
+			.then((value) => (data.value = Object.freeze(value) as UnwrapRef<D>))
+			.catch((err) => (error.value = (err as Error).message))
 			.finally(() => (isLoading.value = false))
 	})
 
